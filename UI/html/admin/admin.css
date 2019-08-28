@@ -1,0 +1,344 @@
+body{
+  font-size: 1.1em;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+  color: #363636;
+}
+
+/* +++++++++++++++++++++++++ GLOBAL ++++++++++++++++++++++++++++++++++ */
+.container{
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.active{
+  font-weight: bold;
+  border-bottom: 1px solid #ffffff;
+}
+
+.active:hover{
+  color: #ff8c00;
+  border-bottom: none;
+}
+
+/* ++++++++++++++++++++++++++++ STYLING ADMIN HEADER ++++++++++++++++++++++++ */
+.admin-header{
+    background-color: #363636;
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+    min-height: 70px;
+}
+
+.admin-header .header-left{
+    float: left;
+}
+
+.admin-header .header-left p{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.admin-header .header-right{
+  float: right;
+}
+
+.admin-header .header-right li{
+  display: inline;
+  margin: 5px;
+  position: relative;
+  bottom: 20px;
+}
+
+.admin-header .header-right img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  border: 1px solid #dddddd;
+}
+
+.admin-header .header-right a{
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+/* ++++++++++++++++++++++++++++ END +++++++++++++++++++++++++++++++++++++++++ */
+
+/* ++++++++++++++++++++++++++++ STYLING ADMIN NAV +++++++++++++++++++++++++++ */
+.admin-nav{
+  background-color: #363636;
+  color: #ffffff;
+  float: left;
+  min-width: 15%;
+  min-height: 600px;
+}
+
+.admin-nav ul li{
+  list-style-type: none;
+  margin-top: 30px;
+}
+
+.admin-nav ul li a{
+  color: #ffffff;
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
+.admin-nav a:hover{
+  border-bottom: 1px solid #ffffff;
+}
+
+
+
+/* ++++++++++++++++++++++++++++ END +++++++++++++++++++++++++++++++++++++++++ */
+
+/* ++++++++++++++++++++++++++++ STYLING ADMIN CONTENT +++++++++++++++++++++++ */
+.admin-content{
+  width: 80%;
+  float: right;
+}
+
+.dash-users, .dash-mentors, .dash-applications{
+  width: 30%;
+  min-height: 150px;
+  border: 1px solid #363636;
+  display: inline-block;
+  margin-top: 10px;
+  margin: 10px;
+  border-radius: 20px;
+}
+
+.dash-users p, .dash-mentors p, .dash-applications p{
+  color: #ffffff;
+  display: block;
+  margin: 5px;
+  font-size: 1.4em;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.dash-users span, .dash-mentors span, .dash-applications span{
+  color: #ffffff;
+  display: block;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.dash-users a, .dash-mentors a, .dash-applications a{
+  background-color: #ffffff;
+  color: #2d56ad;
+  display: block;
+  text-align: center;
+  margin-top: 30px;
+  border-radius: 0 0 5px 5px;
+  text-decoration: none;
+}
+
+.dash-users a:hover, .dash-mentors a:hover, .dash-applications a:hover{
+  background-color: #363636;
+  color: #ffffff;
+}
+
+
+.dash-users{
+  background-color: #443e5c;
+}
+
+.dash-mentors{
+  background-color: #4a634a;
+}
+
+.dash-applications{
+  background-color: #4a4410;
+}
+
+.admin-table{
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.admin-table th{
+  background-color: darkgrey;
+  color: #ffffff;
+}
+
+.admin-table th, .admin-table td{
+  border: 1px solid #dddddd;
+  text-align: left;
+  font-size: 1.1em;
+  padding: 8px;
+}
+
+.admin-table tr:hover{
+  cursor: text;
+  background-color: #dddddd;
+}
+
+.admin-table .approve{
+  display: block;
+  margin: auto;
+  background-color: #20660b;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3em;
+  outline: none;
+}
+
+.admin-table .deny{
+  display: block;
+  margin: auto;
+  background-color: #9c082d;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3em;
+  outline: none;
+}
+
+.admin-table #approve{
+  background-color: #20660b;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.admin-table #approve:hover{
+  opacity: 0.7;
+}
+
+.admin-table #deny{
+  background-color: #9c082d;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.admin-table #deny:hover{
+  opacity: 0.7;
+}
+
+.back-btn{
+  display: block;
+  background-color: #009acd;
+  color: #ffffff;
+  margin-bottom: 30px;
+  width: 10%;
+  text-align: center;
+  height: 30px;
+  border-radius: 20px 0 0 20px;
+  font-weight: bold;
+  text-decoration: none;
+  padding-top: 5px;
+}
+
+.back-btn:hover{
+  opacity: 0.8;
+}
+/* ++++++++++++++++++++++++++++ END +++++++++++++++++++++++++++++++++++++++++ */
+
+/* ++++++++++++++++++++++++++++ STYLING ADMIN FOOTER ++++++++++++++++++++++++ */
+.admin-footer{
+  background-color: #363636;
+  width: 100%;
+  min-height: 50px;
+}
+
+.admin-footer div{
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+  margin-top: 25px;
+}
+/* ++++++++++++++++++++++++++++ END +++++++++++++++++++++++++++++++++++++++++ */
+
+@media only screen and (max-width: 1250px){
+  .header-left, .header-right, .admin-nav, .admin-content{
+    float: none;
+    width: 100%;
+  }
+
+  .admin-nav{
+    min-height: 40px;
+  }
+
+  .admin-nav li{
+    display: inline;
+    margin: 5px;
+  }
+
+  .dash-users, .dash-mentors, .dash-applications{
+    width: 90%;
+    min-height: 150px;
+    border: 1px solid #363636;
+    display: inline-block;
+    margin-top: 10px;
+    margin: 10px;
+    border-radius: 20px;
+  }
+
+  .dash-users p, .dash-mentors p, .dash-applications p{
+    color: #ffffff;
+    display: block;
+    margin: 5px;
+    font-size: 1.4em;
+    text-align: center;
+    text-decoration: underline;
+  }
+
+  .dash-users span, .dash-mentors span, .dash-applications span{
+    color: #ffffff;
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .dash-users a, .dash-mentors a, .dash-applications a{
+    background-color: #ffffff;
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    border-radius: 0 0 5px 5px;
+    text-decoration: none;
+  }
+
+  .dash-users a:hover, .dash-mentors a:hover, .dash-applications a:hover{
+    background-color: #363636;
+    color: #ffffff;
+  }
+
+  .dash-users{
+    background-color: #443e5c;
+  }
+
+  .dash-mentors{
+    background-color: #4a634a;
+  }
+
+  .dash-applications{
+    background-color: #4a4410;
+  }
+
+  .admin-table th, .admin-table td{
+    padding: 3px;
+  }
+
+  .container{
+    width: 100%;
+  }
+
+  .back-btn{
+    width: 25%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ++++++++++++++++++++++++++++ END +++++++++++++++++++++++++++++++++++++++++ */
