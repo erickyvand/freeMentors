@@ -60,6 +60,11 @@ router.post('/sessions/:id/review', verifyToken, (req, res) => {
         status: 400,
         error: result.error.details[0].message,
       });
+    } else if (req.body.score > 5) {
+      res.status(400).json({
+        status: 400,
+        error: 'Score should not be greater than 5',
+      });
     } else {
       const review = {
         id: reviews.length + 1,
