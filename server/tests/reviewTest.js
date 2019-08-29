@@ -115,22 +115,6 @@ describe('/POST User review mentor for mentorship session', () => {
       .catch((err) => done(err));
   });
 
-  it('App should check if score is greater than 5', (done) => {
-    const review = {
-      score: 6,
-      remarks: 'That is good',
-    };
-    chai.request(app)
-      .post('/api/v1/sessions/6/review')
-      .set('Authorization', userToken)
-      .send(review)
-      .then((res) => {
-        res.body.status.should.be.equal(400);
-        done();
-      })
-      .catch((err) => done(err));
-  });
-
   it('App should create review', (done) => {
     const review = {
       score: 4,
