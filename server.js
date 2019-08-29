@@ -4,7 +4,7 @@ import router from './server/routes/routes';
 const app = express();
 app.use(express.json());
 app.use(router);
-const port = process.env.port || 3211;
+const port = process.env.PORT || 3211;
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
