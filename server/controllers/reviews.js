@@ -14,7 +14,7 @@ const router = express.Router();
 router.post('/sessions/:id/review', verifyToken, (req, res) => {
   const findSession = sessions.find((c) => c.sessionId === parseInt(req.params.id));
 
-  // Validate inputs
+  // Validate inputs.
   const schema = {
     score: Joi.number().required(),
     remark: Joi.string().min(3).max(250).required(),
@@ -59,11 +59,6 @@ router.post('/sessions/:id/review', verifyToken, (req, res) => {
       res.status(400).json({
         status: 400,
         error: result.error.details[0].message,
-      });
-    } else if (req.body.score > 5) {
-      res.status(400).json({
-        status: 400,
-        error: 'Score should not be greater than 5',
       });
     } else {
       const review = {
