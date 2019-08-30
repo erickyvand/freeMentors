@@ -14,7 +14,10 @@
   "scripts": {
     "test": "nyc mocha --require @babel/register ./server/tests/* --timeout 10000 --exit || true",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "start": "nodemon app.js"
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "12.4.0"
   },
   "author": "Ericky Vand",
   "license": "ISC",
