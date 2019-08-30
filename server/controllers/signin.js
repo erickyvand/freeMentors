@@ -1,3 +1,5 @@
+/* eslint-disable object-shorthand */
+/* eslint-disable key-spacing */
 /* eslint-disable no-trailing-spaces */
 import express from 'express';
 import bcrypt from 'bcrypt';
@@ -28,7 +30,7 @@ router.post('/signin', (req, res) => {
             status: 200,
             message: `User ${user.first_name} ${user.last_name} is successfully logged in`,
             data: {
-              token,
+              token: token,
               first_name: user.first_name,
               last_name: user.last_name,
             },
