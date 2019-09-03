@@ -17,7 +17,7 @@ router.post('/signup', (req, res) => {
     last_name: Joi.string().alphanum().min(3).max(30)
       .required(),
     email: Joi.string().email({ minDomainSegments: 2 }),
-    password: Joi.string().regex(/^[a-zA-Z0-9]{6,30}$/),
+    password: Joi.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/),
     address: Joi.string().min(3).max(30).required(),
     bio: Joi.string().required(),
     occupation: Joi.string().min(3).max(30).required(),
@@ -63,11 +63,9 @@ router.post('/signup', (req, res) => {
       // if(err) throw err;
       res.status(201).json({
         status: 201,
-        message: 'User created successfully',
+        message: `User ${user.first_name} ${user.last_name} created successfully`,
         data: {
           token,
-          user,
-          message: 'User created successfully',
         },
       });
     });
