@@ -28,12 +28,9 @@ body{
 /* ++++++++++++++++++++++ END STYLING +++++++++++++++++++++++++++++++++++++++ */
 
 /* ++++++++++++++++++++ STYLING HEADER ++++++++++++++++++++++++++++++++++++++ */
-header{
-  background: url('../img/cover.jpg') no-repeat;
-  min-height: 200px;
-  background-size: 100% 100%;
-
-
+header img{
+  height: 400px;
+  width: 100%;
 }
 
 header span{
@@ -47,6 +44,18 @@ header span{
 /* ++++++++++++++++++++++ END STYLING +++++++++++++++++++++++++++++++++++++++ */
 
 /* ++++++++++++++++++++ STYLING NAVBAR ++++++++++++++++++++++++++++++++++++++ */
+.logo-img{
+  background-color: #827c7c;
+}
+
+.logo-img img{
+  display: block;
+  margin: auto;
+  height: 100px;
+  width: 20%;
+  background-color: #ffffff;
+}
+
 nav {
   background-color: #3f4652;
   min-height: 50px;
@@ -139,7 +148,7 @@ aside{
 }
 
 .form-field .label-field{
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 .form-field textarea{
@@ -158,7 +167,7 @@ aside{
   border: 1px solid #dddddd;
   height: 38px;
   width: 100%;
-  font-size: 1.6em;
+  font-size: 1.2em;
   border-radius: 10px;
 }
 
