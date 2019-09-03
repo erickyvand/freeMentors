@@ -150,6 +150,7 @@ aside{
 .form-field .label-field{
   font-size: 1em;
   font-family: Arial, Helvetica, sans-serif;
+  color: #363636;
 }
 
 .form-field textarea{
