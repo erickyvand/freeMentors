@@ -4,7 +4,6 @@ body{
   font-family: Arial, Helvetica, sans-serif;
   padding: 0;
   margin: 0;
-  color: #363636;
 }
 /* ++++++++++++++++++++++ END STYLING +++++++++++++++++++++++++++++++++++++++ */
 
@@ -44,21 +43,15 @@ header span{
 /* ++++++++++++++++++++++ END STYLING +++++++++++++++++++++++++++++++++++++++ */
 
 /* ++++++++++++++++++++ STYLING NAVBAR ++++++++++++++++++++++++++++++++++++++ */
-.logo-img{
-  background-color: #827c7c;
-}
-
-.logo-img img{
-  display: block;
-  margin: auto;
-  height: 100px;
-  width: 20%;
-  background-color: #ffffff;
-}
 
 nav {
   background-color: #3f4652;
   min-height: 50px;
+}
+
+nav img{
+  height: 20px;
+  width: 10%;
 }
 
 .sticky{
@@ -170,7 +163,8 @@ aside{
   border: 1px solid #dddddd;
   height: 38px;
   width: 100%;
-  font-size: 1.2em;
+  color: #363636;
+  font-size: 1.1em;
   border-radius: 10px;
 }
 

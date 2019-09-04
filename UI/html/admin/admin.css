@@ -241,6 +241,8 @@ body{
   background-color: #363636;
   width: 100%;
   min-height: 50px;
+  position: fixed;
+  bottom: 0;
 }
 
 .admin-footer div{
