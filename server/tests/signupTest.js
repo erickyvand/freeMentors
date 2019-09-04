@@ -15,7 +15,7 @@ describe('/POST signup', () => {
       first_name: 'Anthony',
       last_name: 'Martial',
       email: 'anthony@gmail.com',
-      password: '123456',
+      password: 'Ab1234567@',
       address: 'Kigali',
       bio: 'hard worker',
       occupation: 'developer',
@@ -61,7 +61,7 @@ describe('/POST signup', () => {
       first_name: 'Umutesi',
       last_name: 'Jane',
       email: 'umutesi@gmail.com',
-      password: '123456',
+      password: 'Ab1234567@',
       address: 'Kigali',
       bio: 'hard worker',
       occupation: 'developer',
@@ -77,5 +77,6 @@ describe('/POST signup', () => {
       })
       .catch((err) => done(err));
   });
+
 // eslint-disable-next-line eol-last
 });
