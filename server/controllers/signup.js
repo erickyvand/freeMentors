@@ -74,10 +74,6 @@ router.post('/signup', (req, res) => {
         message: `User ${user.first_name} ${user.last_name} created successfully`,
         data: {
           token,
-          user: {
-            id: user.id,
-            userType: user.user_type,
-          },
         },
       });
     });
