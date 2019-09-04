@@ -53,6 +53,7 @@ router.patch('/sessions/:sessionId/accept', verifyToken, (req, res) => {
       request.status = 'accepted',
 
       res.status(200).json({
+        message: 'The request was successfully accepted',
         status: 200,
         data: {
           sessionId: request.sessionId,

@@ -52,6 +52,7 @@ router.patch('/sessions/:sessionId/reject', verifyToken, (req, res) => {
       request.status = 'rejected';
   
       res.status(200).json({
+        message: 'The request was successfully rejected',
         status: 200,
         data: {
           sessionId: request.sessionId,

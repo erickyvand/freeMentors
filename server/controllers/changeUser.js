@@ -46,12 +46,12 @@ router.patch('/user/:id', verifyToken, (req, res) => {
       // update if everything went right
       user.user_type = 'mentor';
       res.status(200).json({
+        message: 'User account changed to mentor',
         status: 200,
         data: {
           firstName: user.first_name,
           lastName: user.last_name,
           status: user.user_type,
-          message: 'User account changed to mentor',
         },
       });
       users.push(user);

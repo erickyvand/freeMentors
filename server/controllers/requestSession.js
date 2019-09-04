@@ -72,6 +72,7 @@ router.post('/sessions', verifyToken, (req, res, next) => {
       sessions.push(session);
   
       res.status(200).json({
+        message: 'The mentorship request session was successfully posted',
         status: 200,
         data: {
           sessionId: session.sessionId,

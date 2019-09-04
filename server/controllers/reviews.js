@@ -70,6 +70,7 @@ router.post('/sessions/:id/review', verifyToken, (req, res) => {
       };
       reviews.push(review);
       res.status(200).json({
+        message: 'Your review was successfully posted',
         status: 200,
         review,
       });
