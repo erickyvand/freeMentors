@@ -13,14 +13,6 @@ router.post('/sessions', verifyToken, (req, res, next) => {
     const user = users.find((c) => c.id === parseInt(req.body.id));
     const findRequest = sessions.find((s) => s.sessionName === req.body.sessionName);
 
-    const session = {
-      sessionId: sessions.length + 1,
-      sessionName: req.body.sessionName,
-      mentorId: req.body.id,
-      questions: req.body.questions,
-      status: 'pending',
-    };
-
     if (err) {
       res.status(403).json({
         status: 403,
@@ -66,14 +58,26 @@ router.post('/sessions', verifyToken, (req, res, next) => {
       });
     } else {
       // push request 
+
+      const session = {
+        sessionId: sessions.length + 1,
+        sessionName: req.body.sessionName,
+        mentorId: req.body.id,
+        firstName: user.first_name,
+        lastName: user.last_name,
+        questions: req.body.questions,
+        status: 'pending',
+      };
+
       sessions.push(session);
   
       res.status(200).json({
+        message: 'The mentorship request session was successfully posted',
         status: 200,
         data: {
           sessionId: session.sessionId,
-          mentorId: session.mentorId,
-          menteeId: loggedUser.user.id,
+          mentorNames: `${session.firstName} ${session.lastName}`,
+          menteeNames: `${loggedUser.user.first_name} ${loggedUser.user.last_name}`,
           questions: session.questions,
           menteeEmail: loggedUser.user.email,
           status: session.status,

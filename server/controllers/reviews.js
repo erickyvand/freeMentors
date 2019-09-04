@@ -64,18 +64,15 @@ router.post('/sessions/:id/review', verifyToken, (req, res) => {
       const review = {
         id: reviews.length + 1,
         sessionId: req.params.id,
-        mentorId: findSession.mentorId,
-        menteeId: loggedUser.user.id,
+        meteeNames: `${loggedUser.user.first_name} ${loggedUser.user.last_name}`,
         score: req.body.score,
-        menteeFullName: loggedUser.user.first_name + ' ' + loggedUser.user.last_name,
         remark: req.body.remark,
-
       };
       reviews.push(review);
       res.status(200).json({
+        message: 'Your review was successfully posted',
         status: 200,
         review,
-        id: reviews.length,
       });
     }
   });

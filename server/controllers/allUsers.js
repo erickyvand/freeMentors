@@ -23,17 +23,48 @@ router.get('/users', verifyToken, (req, res) => {
       });
     } else {
       const all_users = users.filter((c) => c.user_type === 'user');
+      const mentees = [];
+      all_users.forEach((mentee) => {
+        const createMentee = {
+          firstName: mentee.first_name,
+          lastName: mentee.last_name,
+          email: mentee.email,
+          address: mentee.address,
+          bio: mentee.bio,
+          occupation: mentee.occupation,
+          expertise: mentee.expertise,
+        };
+
+        mentees.push(createMentee);
+      });
+
       const all_mentors = users.filter((c) => c.user_type === 'mentor');
+      const mentors = [];
+
+      all_mentors.forEach((mentor) => {
+        const createMentor = {
+          firstName: mentor.first_name,
+          lastName: mentor.last_name,
+          email: mentor.email,
+          address: mentor.address,
+          bio: mentor.bio,
+          occupation: mentor.occupation,
+          expertise: mentor.expertise,
+        };
+
+        mentors.push(createMentor);
+      });
+
       res.status(200).json({
         status: 200,
         message: `************** THE SYSTEM HAS ${users.length} USERS **************** |ADMINS DOES NOT COUNT|`,
         mentorsData: {
           information: `Currenty we have ${all_mentors.length} mentors`,
-          all_mentors,
+          mentors,
         },
         UsersData: {
-          information: `Currenty we have ${all_users.length} users`,
-          all_users,
+          information: `Currenty we have ${all_users.length} Mentees`,
+          mentees,
         },
       });
     }
