@@ -1,3 +1,5 @@
+/* eslint-disable radix */
+/* eslint-disable no-undef */
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -53,9 +55,15 @@ router.post('/signup', (req, res) => {
         status: 409,
         error: 'Email already exists',
       });
-      // next();
     } else {
       users.push(user);
+
+      // signup as admin
+      if (users.length === 6) {
+        user.user_type = 'admin';
+      } else {
+        user.user_type = 'user';
+      }
     }
 
     // Asign token to created user
