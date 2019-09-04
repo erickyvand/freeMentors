@@ -39,7 +39,14 @@ router.get('/mentors/:id', verifyToken, (req, res) => {
       res.status(200).json({
         status: 200,
         data: {
-          user,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          email: user.email,
+          address: users.address,
+          bio: user.bio,
+          occupation: user.occupation,
+          expertise: user.expertise,
+          userTpye: user.user_type,
         },
       });
     }

@@ -56,10 +56,8 @@ router.patch('/sessions/:sessionId/accept', verifyToken, (req, res) => {
         status: 200,
         data: {
           sessionId: request.sessionId,
-          mentorId: request.mentorId,
-          menteeId: loggedUser.user.id,
-          questions: request.questions,
           menteeEmail: loggedUser.user.email,
+          questions: request.questions,
           status: request.status,
         },
       });
