@@ -14,6 +14,7 @@ router.get('/mentors', verifyToken, (req, res) => {
 
     user.forEach((mentor) => {
       const create = {
+        mentorId: mentor.id,
         firstName: mentor.first_name,
         lastName: mentor.last_name,
         email: mentor.email,

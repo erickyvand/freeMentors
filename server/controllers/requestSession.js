@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post('/sessions', verifyToken, (req, res, next) => {
   jwt.verify(req.token, process.env.AUTH_KEY, (err, loggedUser) => {
-    const user = users.find((c) => c.id === parseInt(req.body.id));
+    const user = users.find((c) => c.id === parseInt(req.body.mentorId));
     const findRequest = sessions.find((s) => s.sessionName === req.body.sessionName);
 
     if (err) {
@@ -61,11 +61,11 @@ router.post('/sessions', verifyToken, (req, res, next) => {
 
       const session = {
         sessionId: sessions.length + 1,
+        mentorId: req.body.mentorId,
+        menteeId: loggedUser.user.id,
         sessionName: req.body.sessionName,
-        mentorId: req.body.id,
-        firstName: user.first_name,
-        lastName: user.last_name,
         questions: req.body.questions,
+        menteeEmail: loggedUser.user.email,
         status: 'pending',
       };
 
@@ -76,10 +76,9 @@ router.post('/sessions', verifyToken, (req, res, next) => {
         status: 200,
         data: {
           sessionId: session.sessionId,
-          mentorNames: `${session.firstName} ${session.lastName}`,
-          menteeNames: `${loggedUser.user.first_name} ${loggedUser.user.last_name}`,
-          questions: session.questions,
-          menteeEmail: loggedUser.user.email,
+          mentorId: session.mentorId,
+          sessionName: session.sessionName,
+          menteeEmail: session.menteeEmail,
           status: session.status,
         },
       });

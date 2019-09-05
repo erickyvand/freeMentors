@@ -33,9 +33,8 @@ router.delete('/sessions/:id/review', verifyToken, (req, res) => {
       const remove = reviews.splice(index, 1);
       res.status(200).json({
         status: 200,
+        message: 'Review successfully deleted',
         data: {
-          message: 'Review successfully deleted',
-          removedReview: remove,
           RemainingReviewData: reviews,
         }, 
       });

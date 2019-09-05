@@ -26,6 +26,7 @@ router.get('/users', verifyToken, (req, res) => {
       const mentees = [];
       all_users.forEach((mentee) => {
         const createMentee = {
+          menteeId: mentee.id,
           firstName: mentee.first_name,
           lastName: mentee.last_name,
           email: mentee.email,
@@ -43,6 +44,7 @@ router.get('/users', verifyToken, (req, res) => {
 
       all_mentors.forEach((mentor) => {
         const createMentor = {
+          menteeId: mentor.id,
           firstName: mentor.first_name,
           lastName: mentor.last_name,
           email: mentor.email,

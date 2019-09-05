@@ -54,7 +54,6 @@ router.patch('/user/:id', verifyToken, (req, res) => {
           status: user.user_type,
         },
       });
-      users.push(user);
     }
   });
 });
