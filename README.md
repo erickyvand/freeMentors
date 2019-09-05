@@ -20,7 +20,7 @@ Admin can change user to mentor,
 Users can view mentors and view a specific mentor,
 Mentors can accept or reject mentorship request from mentees,
 Mentees can review Mentors after mentorship,
-Admin can delete review
+Admin can delete review.
 
 Project setup
 ---
