@@ -4,6 +4,16 @@
 
 # FREE MENTORS WEB APPLICATION
 
+### Table of content
+- Description
+- project Setup
+- Technology used
+- Routes
+- Relative links
+
+Description
+---
+
 Free mentors is web application where Mentees can request mentorship sessions to Mentors,
 Users can signup and singin to web application
 Admin can change user to mentor,
@@ -12,56 +22,39 @@ Mentors can accept or reject mentorship request from mentees,
 Mentees can review Mentors after mentorship,
 Admin can delete review
 
-## TECHNOLOGY USED
+Project setup
+---
+1. Clone the project with `git clone https://github.com/erickyvand/freeMentors.git`
+2. Change directory with `cd freeMentors` in terminal
+3. Install packages with npm run `npm install <package-names>`
+4. run the applicaion with npm start	
+
+TECHNOLOGY USED
+---
 
 The APIs ENDPOINTS was developed using: `NodeJS`
 
-## DESCRIPTION OF API ENDPOINT ROUTES
+ROUTES
+---
 
-### SIGNUP Endpoint
+|------------------------------------|---------|----------------------|
+| Endpoint                           | Methods | Functionality        |
+|------------------------------------|---------|----------------------|
+| /api/v1/auth/signup                | POST    | User signup          |
+| /api/v1/auth/signup                | POST    | User signin   	      |
+| /api/v1/mentors                    | GET     | View all mentors     |
+| /api/v1/mentors/:mentorId          | GET     | View specific mentor |
+| /api/v1/user/:userId               | PATCH   | Change user to mentor|
+| /api/v1/sessions                   | POST    | Request Session      |
+| /api/v1/sessions/:sessionId/accept | PATCH   | Accept request       |
+| /api/v1/sessions/:sessionId/reject | PATCH   | Reject request       | 
+| /api/v1/sessions	                 | GET     | View session request |
+| /api/v1/sessions/:sessionId/review | POST    | Review mentor        |
+| /api/v1/sessions/:sessionId/review | DELETE  | Delete Review        |	
+| /api/v1/users                      | GET     | View all users       |
+|------------------------------------|---------|----------------------|
 
-/POST `/api/v1/auth/signup`: User should signup
-
-### SIGNIN Endpoint
-
-/POST `/api/v1/auth/signin`: User should signin
-
-### VIEW MENTORS Endpoint
-
-/GET `/api/v1/mentors`: user should view all mentors
-
-### VIEW SPECIFIC MENTOR Endpoint
-
-/GET `/api/v1/mentors/:mentorId`: User should view a specific mentor
-
-### CHANGE USER TO MENTOR Endpoint
-
-/PATCH `/api/v1/user/:userId`
-
-### MENTORSHIP SESSION REQUEST Endpoint 
-
-/POST `/api/v1/sessions`: User should create mentorship session request with a mentor 
-
-### ACCEPT MENTORSHIP Endpoint
-
-/PATCH `/api/v1/sessions/:sessionId/accept`: Mentor should accept request
-
-### REJECT MENTORSHIP Endpoint
-
-/PATCH `/api/v1/sessions/:sessionId/reject`: Mentor should reject request
-
-### GET SESSIONS Endpoint
-
-/GET `/api/v1/sessions`: Mentee should get sessions request he created and Mentors should get sessions request created against him
-
-### REVIEW Endpoint
-
-/POST `/api/v1/sessions/:sessionId/review`: Mentee should review Mentor after mentorship session
-
-### DELETE REVIEW Endpoint
-
-/DELETE `/api/v1/sessions/:sessionId/review`: Admin should delete review
-
-### GET ALL USERS Endpoint
-
-/GET `/api/v1/users`: Admin should view all users
+Relative links
+---
+1. Heroku: [https://the-free-mentors.herokuapp.com/](https://the-free-mentors.herokuapp.com/)
+2. gh-pages: [https://erickyvand.github.io/freeMentors/UI/](https://erickyvand.github.io/freeMentors/UI/)
