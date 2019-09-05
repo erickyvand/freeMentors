@@ -37,9 +37,9 @@ The APIs ENDPOINTS was developed using: `NodeJS`
 ROUTES
 ---
 
-|------------------------------------|---------|----------------------|
+                                                                 
 | Endpoint                           | Methods | Functionality        |
-|------------------------------------|---------|----------------------|
+| -----------------------------------|:-------:| --------------------:|
 | /api/v1/auth/signup                | POST    | User signup          |
 | /api/v1/auth/signup                | POST    | User signin   	      |
 | /api/v1/mentors                    | GET     | View all mentors     |
@@ -52,7 +52,7 @@ ROUTES
 | /api/v1/sessions/:sessionId/review | POST    | Review mentor        |
 | /api/v1/sessions/:sessionId/review | DELETE  | Delete Review        |	
 | /api/v1/users                      | GET     | View all users       |
-|------------------------------------|---------|----------------------|
+                                                                   
 
 Relative links
 ---
