@@ -14,13 +14,13 @@
 Description
 ---
 
-Free mentors is web application where Mentees can request mentorship sessions to Mentors,
-Users can signup and singin to web application
-Admin can change user to mentor,
-Users can view mentors and view a specific mentor,
-Mentors can accept or reject mentorship request from mentees,
-Mentees can review Mentors after mentorship,
-Admin can delete review.
+- Free mentors is web application where Mentees can request mentorship sessions to Mentors,
+- Users can signup and singin to web application
+- Admin can change user to mentor,
+- Users can view mentors and view a specific mentor,
+- Mentors can accept or reject mentorship request from mentees,
+- Mentees can review Mentors after mentorship,
+- Admin can delete review.
 
 Project setup
 ---
