@@ -1,7 +1,5 @@
 [![Build Status](https://travis-ci.org/erickyvand/freeMentors.svg?branch=develop)](https://travis-ci.org/erickyvand/freeMentors)
-
 [![Coverage Status](https://coveralls.io/repos/github/erickyvand/freeMentors/badge.svg?branch=develop)](https://coveralls.io/github/erickyvand/freeMentors?branch=develop)
-
 [![Maintainability](https://api.codeclimate.com/v1/badges/00420ac0f5e2b0d24fac/maintainability)](https://codeclimate.com/github/erickyvand/freeMentors/maintainability)
 
 # FREE MENTORS WEB APPLICATION
