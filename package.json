@@ -7,13 +7,13 @@
     "test": "tests"
   },
   "nyc": {
-      "exclude": [
-        "server/tests/*.js"
-      ]
+    "exclude": [
+      "server/tests/*.js"
+    ]
   },
   "scripts": {
     "test": "nyc mocha --require @babel/register ./server/tests/* --timeout 10000 --exit || true",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls",
     "start": "node app.js"
   },
   "engines": {
@@ -31,6 +31,7 @@
     "bcrypt": "^3.0.6",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "coveralls": "^3.0.6",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
