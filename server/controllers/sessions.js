@@ -17,21 +17,10 @@ router.get('/sessions', verifyToken, (req, res) => {
     // check if the logged user is a user  
     } else if (loggedUser.user.user_type === 'user') {
       const menteeData = sessions.filter((c) => c.menteeId === loggedUser.user.id);
-      const menteeRequest = [];
 
-      menteeData.forEach((requestCreated) => {
-        const menteeResult = {
-          menteeEmail: requestCreated.menteeEmail,
-          sessionName: requestCreated.sessionName,
-          questions: requestCreated.questions,
-          status: requestCreated.status,
-        };
-
-        menteeRequest.push(menteeResult);
-      });
       res.status(200).json({
         status: 200,
-        menteeRequest,
+        menteeData,
       });
     } else if (loggedUser.user.user_type === 'mentor') {
       const mentorData = sessions.filter((c) => c.mentorId === loggedUser.user.id);
