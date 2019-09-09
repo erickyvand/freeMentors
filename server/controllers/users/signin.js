@@ -1,48 +1,64 @@
-/* eslint-disable object-shorthand */
-/* eslint-disable key-spacing */
 /* eslint-disable no-trailing-spaces */
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import users from '../../models/user';
+import client from '../../config/config';
 
 dotenv.config();
 
 const router = express.Router();
 
 router.post('/signin', (req, res) => {
-  const user = users.find((s) => s.email === req.body.email);
+  const user = {
+    text: 'SELECT * FROM users WHERE email = $1',
+    values: [req.body.email],
+  };
 
-  // check if user ID exists
-  if (!user) {
-    res.status(404).json({
-      status: 404,
-      message: 'User not found',
-    });
-  // compare the plain password with the hash password  
-  } else {
-    bcrypt.compare(req.body.password, user.password, (err, matched) => {
-      // log user in if password matches
-      if (matched) {
-        jwt.sign({ user }, process.env.AUTH_KEY, (_err, token) => {
-          res.status(200).json({
-            status: 200,
-            message: `User ${user.first_name} ${user.last_name} is successfully logged in`,
-            data: {
-              token: token,
-            },
+  client.query(user, (error, results) => {
+    if (results.rows === 'undefined' || results.rows.length === 0) {
+    // there is no data in the DB
+      res.status(404).json({
+        status: 404,
+        error: 'Authentication failed, Invalid Email or Password',
+      });
+    } else {
+      const userIn = {
+        id: results.rows[0].id,
+        firstName: results.rows[0].first_name,
+        lastName: results.rows[0].last_name,
+        email: results.rows[0].email,
+        hashPassword: results.rows[0].password,
+        address: results.rows[0].address,
+        bio: results.rows[0].bio,
+        occupation: results.rows[0].occupation,
+        expertise: results.rows[0].expertise,
+        user_type: results.rows[0].user_type,
+      };
+
+      bcrypt.compare(req.body.password, userIn.hashPassword, (err, matched) => {
+        if (matched) {
+          jwt.sign({ userIn }, process.env.AUTH_KEY, (_err, token) => {
+            res.status(200).json({
+              status: 200,
+              message: 'User is successfully sign in',
+              data: {
+                token,
+                firstName: userIn.firstName,
+                lastName: userIn.lastName,
+              },
+            });
           });
-        });
-      // not authorize user to log in  
-      } else {
-        res.status(401).json({
-          status: 401,
-          message: 'Authentication failed, Invalid Email or Password',
-        });
-      }
-    });
-  }
+        // not authorize user to log in  
+        } else {
+          res.status(401).json({
+            status: 401,
+            message: 'Authentication failed, Invalid Email or Password',
+          });
+        }
+      });
+    }
+  });  
 });
 
 export default router;
