@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaihttp from 'chai-http';
-import app from '../../app';
+import app from '../../../app';
 import user from '../helpers/dummyUser';
 
 // eslint-disable-next-line no-unused-vars

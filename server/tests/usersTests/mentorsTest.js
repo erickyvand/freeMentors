@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import chai from 'chai';
 import chaihttp from 'chai-http';
-import app from '../../app';
+import app from '../../../app';
 import token from '../helpers/dummyToken';
 
 // eslint-disable-next-line no-unused-vars
