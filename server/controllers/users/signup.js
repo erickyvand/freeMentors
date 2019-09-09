@@ -1,17 +1,13 @@
-/* eslint-disable radix */
-/* eslint-disable no-undef */
+/* eslint-disable no-trailing-spaces */
 import express from 'express';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import Joi from '@hapi/joi';
-import users from '../../models/user';
+import client from '../../config/config';
 
 
 const router = express.Router();
 
 router.post('/signup', (req, res) => {
-  const findEmail = users.find((s) => s.email === req.body.email);
-
   // Validate inputs
   const schema = {
     first_name: Joi.string().alphanum().min(3).max(30)
@@ -30,8 +26,8 @@ router.post('/signup', (req, res) => {
 
   // hash password
   bcrypt.hash(req.body.password, 10, (err, hash) => {
+    //  if(err) throw err;
     const user = {
-      id: users.length + 1,
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       email: req.body.email,
@@ -40,45 +36,38 @@ router.post('/signup', (req, res) => {
       bio: req.body.bio,
       occupation: req.body.occupation,
       expertise: req.body.expertise,
-      user_type: 'user',
     };
 
-    if (result.error) {
-      res.status(400).json({
-        status: 400,
-        error: result.error.details[0].message,
-      });
-    } else if (findEmail) {
-      res.status(409).json({
-        status: 409,
-        error: 'Email already exists',
-      });
-    } else {
-      users.push(user);
+    const query = {
+      text: 'SELECT * FROM users WHERE email = $1',
+      values: [user.email],
+    };
 
-      // signup as admin
-      if (users.length === 6) {
-        user.user_type = 'admin';
+    client.query(query).then((results) => {
+      if (result.error) {
+        res.status(400).json({
+          status: 400,
+          error: result.error.details[0].message,
+        });
+      } else if (results.rows && results.rows.length > 0) {
+      // there is data in the DB
+        res.status(409).json({
+          status: 409,
+          error: 'Email already exists',
+        });
       } else {
-        user.user_type = 'user';
-      }
-    }
-
-    // Asign token to created user
-    jwt.sign({ user }, 'secretkey', (_err, token) => {
-      // if(err) throw err;
-      res.status(201).json({
-        status: 201,
-        message: `User ${user.first_name} ${user.last_name} created successfully`,
-        data: {
-          token,
-          user: {
-            id: user.id,
-            userType: user.user_type,
-          },
-        },
-      });
-    });
+        client.query('INSERT INTO users(first_name, last_name, email, password, address, bio, occupation, expertise) VALUES($1, $2, $3, $4, $5, $6, $7, $8)', [user.first_name, user.last_name, user.email, user.password, user.address, user.bio, user.occupation, user.expertise], () => {
+          res.status(201).json({
+            status: 201,
+            message: 'User created successfully',
+            user: {
+              firstName: user.first_name,
+              lastName: user.last_name,
+            },
+          });
+        });
+      }  
+    });  
   });
 });
 
