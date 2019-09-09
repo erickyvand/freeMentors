@@ -1,6 +1,7 @@
+/* eslint-disable no-trailing-spaces */
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import users from '../../models/user';
+import client from '../../config/config';
 import verifyToken from '../../middleware/verifyToken';
 
 
@@ -9,7 +10,10 @@ const router = express.Router();
 router.get('/mentors/:id', verifyToken, (req, res) => {
   jwt.verify(req.token, process.env.AUTH_KEY, (err, loggedUser) => {
     // eslint-disable-next-line radix
-    const user = users.find((c) => c.id === parseInt(req.params.id));
+    const user = {
+      text: 'SELECT * FROM  users WHERE id = $1',
+      values: [req.params.id],
+    };
 
     if (err) {
       res.status(403).json({
@@ -17,37 +21,43 @@ router.get('/mentors/:id', verifyToken, (req, res) => {
         error: 'Forbidden',
       });
     // users are allowed to access this route
-    } else if (loggedUser.user.user_type === 'mentor') {
-      res.status(403).json({
-        status: 403,
-        error: 'You are not allowed to access this route',
-      });
-    // throw error if user id not exists
-    } else if (!user) {
-      res.status(404).json({
-        status: 404,
-        error: 'Mentor with the given ID does not exists',
-      });
-    // throw error when the user type is not a mentor
-    } else if (user.user_type !== 'mentor') {
-      res.status(400).json({
-        status: 400,
-        error: 'Bad request, check the ID and try again',
-      });
-    // display the result
     } else {
-      res.status(200).json({
-        status: 200,
-        data: {
-          firstName: user.first_name,
-          lastName: user.last_name,
-          email: user.email,
-          address: users.address,
-          bio: user.bio,
-          occupation: user.occupation,
-          expertise: user.expertise,
-          userTpye: user.user_type,
-        },
+      client.query(user).then((results) => {
+        if (loggedUser.userIn.user_type === '2') {
+          res.status(403).json({
+            status: 403,
+            error: 'You are not allowed to access this route',
+          });
+        // verify if ID exists   
+        } else if (results.rows === 'undefined' || results.rows.length === 0) {
+          res.status(404).json({
+            status: 404,
+            error: 'Mentor with the given ID does not exists',
+          });
+        // verify if the existed ID is mentors ID  
+        } else if (results.rows[0].user_type !== '2') {
+          res.status(400).json({
+            status: 400,
+            error: 'The Given ID is not for a mentor ',
+          });
+        // display specific mentor  
+        } else {
+          res.status(200).json({
+            status: 200,
+            data: {
+              Mentor: {
+                id: results.rows[0].id, 
+                firstName: results.rows[0].first_name,
+                lastName: results.rows[0].last_name,
+                email: results.rows[0].email,
+                address: results.rows[0].address,
+                bio: results.rows[0].bio,
+                occupation: results.rows[0].occupation,
+                expertise: results.rows[0].expertise,
+              },
+            },
+          });
+        }
       });
     }
   });
