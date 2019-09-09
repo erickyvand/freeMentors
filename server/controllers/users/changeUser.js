@@ -1,7 +1,8 @@
+/* eslint-disable no-trailing-spaces */
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import users from '../../models/user';
 import verifyToken from '../../middleware/verifyToken';
+import client from '../../config/config';
 
 
 const router = express.Router();
@@ -10,49 +11,61 @@ const router = express.Router();
 router.patch('/user/:id', verifyToken, (req, res) => {
   jwt.verify(req.token, process.env.AUTH_KEY, (err, loggedUser) => {
     // eslint-disable-next-line radix
-    const user = users.find((c) => c.id === parseInt(req.params.id));
+    const user = {
+      text: 'SELECT * FROM  users WHERE id = $1',
+      values: [req.params.id],
+    };
 
-    // check if error to throw a forbidden
     if (err) {
       res.status(403).json({
         status: 403,
         error: 'Forbidden',
       });
-    // prevent user who is not an admin to access the route
-    } else if (loggedUser.user.user_type !== 'admin') {
-      res.status(403).json({
-        status: 403,
-        error: 'You are not allowed to access this route',
-      });
-    // check if user ID exists
-    } else if (!user) {
-      res.status(404).json({
-        status: 404,
-        error: 'User with the given ID does not exits',
-      });
-    // admin can not be changed to mentor
-    } else if (user.user_type === 'admin') {
-      res.status(403).json({
-        status: 403,
-        error: 'Admin can not be changed to mentor',
-      });
-    // Unauthorize if already a user was updated to mentor
-    } else if (user.user_type === 'mentor') {
-      res.status(409).json({
-        status: 409,
-        error: 'User already changed to mentor',
-      });
     } else {
-      // update if everything went right
-      user.user_type = 'mentor';
-      res.status(200).json({
-        message: 'User account changed to mentor',
-        status: 200,
-        data: {
-          firstName: user.first_name,
-          lastName: user.last_name,
-          status: user.user_type,
-        },
+      client.query(user, (error, results) => {
+        // prevent user who is not an admin to access the route
+        if (loggedUser.userIn.user_type !== '1') {
+          res.status(403).json({
+            status: 403,
+            error: 'You are not allowed to access this route',
+          });
+        // verify if ID exists   
+        } else if (results.rows === 'undefined' || results.rows.length === 0) {
+          res.status(404).json({
+            status: 404,
+            error: 'No User found',
+          });
+        // verify admin to be changed as mentor  
+        } else if (results.rows[0].user_type === '1') {
+          res.status(403).json({
+            status: 403,
+            error: 'Admin can not be changed to mentor',
+          });
+        // verify if user already changed as mentors  
+        } else if (results.rows[0].user_type === '2') {
+          res.status(409).json({
+            status: 409,
+            error: 'User already changed to mentor',
+          });
+        // if everything is good update the user  
+        } else {
+          client.query('UPDATE users SET user_type = 2 WHERE id = $1', [req.params.id]);
+          client.query('SELECT * FROM users WHERE id = $1', [req.params.id], (fail, type) => {
+            res.status(200).json({
+              status: 200,
+              message: 'User account changed to mentor',
+              data: {
+                Mentor: {
+                  id: type.rows[0].id, 
+                  firstName: type.rows[0].first_name,
+                  lastName: type.rows[0].last_name,
+                  email: type.rows[0].email,
+                  address: type.rows[0].address,
+                },
+              },
+            });
+          });
+        }
       });
     }
   });
