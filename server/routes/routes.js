@@ -1,31 +1,38 @@
 import express from 'express';
-// eslint-disable-next-line import/no-unresolved
-import signupController from '../controllers/signup';
-import signinController from '../controllers/signin';
-import changerUserController from '../controllers/changeUser';
-import mentorsController from '../controllers/mentors';
-import specificMentorController from '../controllers/specificMentor';
-import requestSessionController from '../controllers/requestSession';
-import acceptRequestController from '../controllers/acceptRequest';
-import rejectRequestController from '../controllers/rejectRequest';
-import sessionsController from '../controllers/sessions';
-import allUsersController from '../controllers/allUsers';
-import reviewController from '../controllers/reviews';
-import deleteReviewController from '../controllers/deleteReview';
 
-const route = express();
+import signupController from '../controllers/users/signup';
+import signinController from '../controllers/users/signin';
+import changerUserController from '../controllers/users/changeUser';
+import mentorsController from '../controllers/users/mentors';
+import specificMentorController from '../controllers/users/specificMentor';
+import allUsersController from '../controllers/users/allUsers';
 
-route.use('/api/v1/auth', signupController);
-route.use('/api/v1/auth', signinController);
-route.use('/api/v1', changerUserController);
-route.use('/api/v1', mentorsController);
-route.use('/api/v1', specificMentorController);
-route.use('/api/v1', requestSessionController);
-route.use('/api/v1', acceptRequestController);
-route.use('/api/v1', rejectRequestController);
-route.use('/api/v1', sessionsController);
-route.use('/api/v1', allUsersController);
-route.use('/api/v1', reviewController);
-route.use('/api/v1', deleteReviewController);
+import requestSessionController from '../controllers/sessions/requestSession';
+import acceptRequestController from '../controllers/sessions/acceptRequest';
+import rejectRequestController from '../controllers/sessions/rejectRequest';
+import sessionsController from '../controllers/sessions/sessions';
 
-export default route;
+import reviewController from '../controllers/reviews/reviews';
+import deleteReviewController from '../controllers/reviews/deleteReview';
+
+const routes = express();
+
+// users routes
+routes.use('/api/v1/auth', signupController);
+routes.use('/api/v1/auth', signinController);
+routes.use('/api/v1', changerUserController);
+routes.use('/api/v1', mentorsController);
+routes.use('/api/v1', specificMentorController);
+routes.use('/api/v1', allUsersController);
+
+// sessions routes
+routes.use('/api/v1', requestSessionController);
+routes.use('/api/v1', acceptRequestController);
+routes.use('/api/v1', rejectRequestController);
+routes.use('/api/v1', sessionsController);
+
+// reviews routes
+routes.use('/api/v1', reviewController);
+routes.use('/api/v1', deleteReviewController);
+
+export default routes;
