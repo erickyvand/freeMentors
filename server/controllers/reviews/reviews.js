@@ -5,9 +5,9 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import Joi from '@hapi/joi';
-import verifyToken from '../middleware/verifyToken';
-import sessions from '../models/session';
-import reviews from '../models/review';
+import verifyToken from '../../middleware/verifyToken';
+import sessions from '../../models/session';
+import reviews from '../../models/review';
 
 const router = express.Router();
 

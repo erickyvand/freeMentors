@@ -5,7 +5,7 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import users from '../models/user';
+import users from '../../models/user';
 
 dotenv.config();
 

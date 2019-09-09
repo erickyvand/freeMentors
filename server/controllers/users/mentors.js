@@ -1,8 +1,8 @@
 /* eslint-disable no-trailing-spaces */
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import users from '../models/user';
-import verifyToken from '../middleware/verifyToken';
+import users from '../../models/user';
+import verifyToken from '../../middleware/verifyToken';
 
 
 const router = express.Router();

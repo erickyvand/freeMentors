@@ -3,8 +3,8 @@
 /* eslint-disable radix */
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import verifyToken from '../middleware/verifyToken';
-import users from '../models/user';
+import verifyToken from '../../middleware/verifyToken';
+import users from '../../models/user';
 
 const router = express.Router();
 

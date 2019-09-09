@@ -4,8 +4,8 @@
 /* eslint-disable radix */
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import verifyToken from '../middleware/verifyToken';
-import reviews from '../models/review';
+import verifyToken from '../../middleware/verifyToken';
+import reviews from '../../models/review';
 
 const router = express.Router();
 
@@ -30,7 +30,7 @@ router.delete('/sessions/:id/review', verifyToken, (req, res) => {
         error: 'The review ID not found',
       });
     } else {
-      const remove = reviews.splice(index, 1);
+      reviews.splice(index, 1);
       res.status(200).json({
         status: 200,
         message: 'Review successfully deleted',

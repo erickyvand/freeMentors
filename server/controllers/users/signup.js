@@ -4,7 +4,7 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import Joi from '@hapi/joi';
-import users from '../models/user';
+import users from '../../models/user';
 
 
 const router = express.Router();
@@ -30,7 +30,6 @@ router.post('/signup', (req, res) => {
 
   // hash password
   bcrypt.hash(req.body.password, 10, (err, hash) => {
-    //  if(err) throw err;
     const user = {
       id: users.length + 1,
       first_name: req.body.first_name,
@@ -49,7 +48,6 @@ router.post('/signup', (req, res) => {
         status: 400,
         error: result.error.details[0].message,
       });
-      // next();
     } else if (findEmail) {
       res.status(409).json({
         status: 409,
