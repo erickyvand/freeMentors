@@ -8,13 +8,14 @@
   },
   "nyc": {
     "exclude": [
-      "server/tests/*.js"
+      "server/tests/*",
+      "server.js"
     ]
   },
   "scripts": {
     "test": "nyc mocha --require @babel/register ./server/tests/* --timeout 10000 --exit || true",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls",
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "engines": {
     "node": "12.4.0"
