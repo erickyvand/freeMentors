@@ -15,7 +15,7 @@
   "scripts": {
     "test": "nyc mocha --require @babel/register ./server/tests/* --timeout 10000 --exit || true",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls",
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "engines": {
     "node": "12.4.0"
