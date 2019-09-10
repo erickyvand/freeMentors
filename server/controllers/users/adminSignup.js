@@ -2,12 +2,14 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import Joi from '@hapi/joi';
+import dotenv from 'dotenv';
 import client from '../../config/config';
 
+dotenv.config();
 
 const router = express.Router();
 
-router.post('/adminSignup', (req, res) => {
+router.post(`/${process.env.SECRET_ROUTE}`, (req, res) => {
   // Validate inputs
   const schema = {
     first_name: Joi.string().alphanum().min(3).max(30)
