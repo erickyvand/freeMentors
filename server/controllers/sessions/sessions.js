@@ -31,7 +31,10 @@ router.get('/sessions', verifyToken, (req, res) => {
         });
       });
     } else {
-      res.status(404).send('Not records found');
+      res.status(404).json({
+        status: 404,
+        message: 'Not records found',
+      });
     }
   });
 });
