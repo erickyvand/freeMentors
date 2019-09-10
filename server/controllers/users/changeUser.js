@@ -49,8 +49,7 @@ router.patch('/user/:id', verifyToken, (req, res) => {
           });
         // if everything is good update the user  
         } else {
-          client.query('UPDATE users SET user_type = 2 WHERE id = $1', [req.params.id]);
-          client.query('SELECT * FROM users WHERE id = $1', [req.params.id], (fail, type) => {
+          client.query('UPDATE users SET user_type = 2 WHERE id = $1 RETURNING*', [req.params.id], (fail, type) => {
             res.status(200).json({
               status: 200,
               message: 'User account changed to mentor',
