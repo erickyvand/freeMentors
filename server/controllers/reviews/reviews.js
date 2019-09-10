@@ -52,8 +52,8 @@ router.post('/sessions/:sessionId/review', verifyToken, (req, res) => {
           });
         // check the privileges of who requested  
         } else if (loggedUser.userIn.id !== results.rows[0].menteeid) {
-          res.status(404).json({ 
-            status: 404,
+          res.status(401).json({ 
+            status: 401,
             error: 'The given course ID is not the course you requested',
           });
         // review the request accepted  
