@@ -70,21 +70,12 @@ router.post('/sessions/:sessionId/review', verifyToken, (req, res) => {
           });
         // review if everything is okay  
         } else {
-          client.query('SELECT * FROM reviews WHERE reqsession_id = $1', [review.reqsession_id], (error, findSession) => {
-            if (findSession.rows && findSession.rows.length > 0) {
-              res.status(409).json({
-                status: 409,
-                error: 'The session already reviewed',
-              });
-            } else {
-              client.query('INSERT INTO reviews (reqsession_id, menteeid, score, remark) VALUES ($1, $2, $3, $4)', [review.reqsession_id, review.menteeid, review.score, review.remark]);
-              client.query('SELECT r.id as id, rq.id as sessionid, rq.mentorid as mentorId, u.first_name as menteeFirstName, u.last_name as menteeLastName, r.score as score, r.remark as remark FROM users u JOIN request_session rq ON u.id = rq.menteeid JOIN reviews r ON rq.id = r.reqsession_id WHERE u.id = $1 ORDER BY r.id DESC LIMIT 1', [loggedUser.userIn.id]).then((reviews) => {
-                res.status(201).json({
-                  status: 201,
-                  data: reviews.rows[0],
-                });
-              });
-            }
+          client.query('INSERT INTO reviews (reqsession_id, menteeid, score, remark) VALUES ($1, $2, $3, $4)', [review.reqsession_id, review.menteeid, review.score, review.remark]);
+          client.query('SELECT r.id as id, rq.id as sessionid, rq.mentorid as mentorId, u.first_name as menteeFirstName, u.last_name as menteeLastName, r.score as score, r.remark as remark FROM users u JOIN request_session rq ON u.id = rq.menteeid JOIN reviews r ON rq.id = r.reqsession_id WHERE u.id = $1 ORDER BY r.id DESC LIMIT 1', [loggedUser.userIn.id]).then((reviews) => {
+            res.status(201).json({
+              status: 201,
+              data: reviews.rows[0],
+            });
           });
         }
       });
