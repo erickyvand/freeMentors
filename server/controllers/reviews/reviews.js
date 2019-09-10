@@ -62,7 +62,7 @@ router.post('/sessions/:sessionId/review', verifyToken, (req, res) => {
             status: 401,
             error: 'Can not review session that was not accepted',
           });
-        // check validation  
+        // check validation.  
         } else if (result.error) {
           res.status(400).json({
             status: 400,
