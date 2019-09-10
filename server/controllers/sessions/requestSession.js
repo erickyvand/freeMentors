@@ -2,85 +2,68 @@
 /* eslint-disable radix */
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import users from '../../models/user';
+import Joi from '@hapi/joi';
 import verifyToken from '../../middleware/verifyToken';
-import sessions from '../../models/session';
+import client from '../../config/config';
 
 const router = express.Router();
 
-router.post('/sessions', verifyToken, (req, res, next) => {
+router.post('/sessions', verifyToken, (req, res) => {
   jwt.verify(req.token, process.env.AUTH_KEY, (err, loggedUser) => {
-    const user = users.find((c) => c.id === parseInt(req.body.mentorId));
-    const findRequest = sessions.find((s) => s.sessionName === req.body.sessionName);
+    const schema = {
+      mentorId: Joi.number().required(),
+      questions: Joi.string().min(3).max(250).required(),
+    };
+
+    const result = Joi.validate(req.body, schema);
 
     if (err) {
       res.status(403).json({
         status: 403,
         error: 'Forbidden',
-      });
-    // check if the logged user is a user  
-    } else if (loggedUser.user.user_type !== 'user') {
-      res.status(403).json({
-        status: 403,
-        error: 'You are not allowed to access this route',
-      });
-    // check if session name is empty  
-    } else if (req.body.sessionName === '') {
-      res.status(400).json({
-        status: 400,
-        error: 'Session Name is required',
-      });
-      next();
-    // session name length must be 3 characters long  
-    } else if (req.body.sessionName.length < 3) {
-      res.status(400).json({
-        status: 400,
-        error: 'Session Name must be atleast 3 characters long',
-      });
-      next();
-    // check if the id exists in users  
-    } else if (!user) {
-      res.status(404).json({
-        status: 404,
-        error: 'The given Id does not exits',
-      });
-    // check if the existed Id is mentor's Id  
-    } else if (user.user_type !== 'mentor') {
-      res.status(404).json({
-        status: 404,
-        error: 'The given Id is not mentor\'s ID',
-      });
-    // find if the request was made before 
-    } else if (findRequest) {
-      res.status(401).json({
-        status: 401,
-        error: 'This request was made before',
-      });
+      });  
     } else {
-      // push request 
-
       const session = {
-        sessionId: sessions.length + 1,
         mentorId: req.body.mentorId,
-        menteeId: loggedUser.user.id,
-        sessionName: req.body.sessionName,
+        menteeId: loggedUser.userIn.id,
         questions: req.body.questions,
-        menteeEmail: loggedUser.user.email,
-        status: 'pending',
       };
-
-      sessions.push(session);
-  
-      res.status(200).json({
-        message: 'The mentorship request session was successfully posted',
-        status: 200,
-        data: {
-          sessionId: session.sessionId,
-          mentorId: session.mentorId,
-          sessionName: session.sessionName,
-          menteeEmail: session.menteeEmail,
-          status: session.status,
-        },
+      client.query('SELECT * FROM users WHERE id = $1', [session.mentorId], (erreur, results) => {
+        // check if the logged user is a user
+        if (loggedUser.userIn.user_type !== '0') {
+          res.status(403).json({
+            status: 403,
+            error: 'You are not allowed to access this route',
+          });
+        // check validation  
+        } else if (result.error) {
+          res.status(400).json({
+            status: 400,
+            error: result.error.details[0].message,
+          });
+        // check if Id exists  
+        } else if (results.rows === 'undefined' || results.rows.length === 0 || results.rows[0].user_type !== '2') {
+          res.status(404).json({
+            status: 404,
+            error: 'Mentor with the Given ID does not exists',
+          });  
+        } else {
+          // Insert into database if everything goes right              
+          client.query('INSERT INTO request_session (mentorId, menteeId, questions) VALUES ($1, $2, $3) RETURNING*', [session.mentorId, session.menteeId, session.questions]);
+          client.query('SELECT r.id as sessionId, r.mentorId as mentorId, u.id as menteeId, r.questions as questions, u.email as email, r.status as status FROM users u JOIN request_session r ON u.id = r.menteeId WHERE u.id = $1 ORDER BY r.id DESC LIMIT 1', [loggedUser.userIn.id], (error, request) => {
+            res.status(201).json({
+              status: 201,
+              data: {
+                sessionId: request.rows[0].sessionid,
+                mentorId: request.rows[0].mentorid,
+                menteeId: request.rows[0].menteeid,
+                questions: request.rows[0].questions,
+                menteeEmail: request.rows[0].email,
+                status: request.rows[0].status, 
+              },
+            });
+          });
+        }
       });
     }
   });
