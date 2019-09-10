@@ -25,11 +25,7 @@ router.get('/mentors', verifyToken, (req, res) => {
       client.query('SELECT id, first_name, last_name, email, address, bio, occupation, expertise FROM users WHERE user_type = $1 ORDER BY id', [userType]).then((results) => {
         res.status(200).json({
           status: 200,
-          data: [
-            {
-              Mentors: results.rows,
-            },
-          ],
+          data: results.rows,
         });
       });
     }
