@@ -28,7 +28,7 @@ router.post('/sessions', verifyToken, (req, res) => {
         menteeId: loggedUser.userIn.id,
         questions: req.body.questions,
       };
-      client.query('SELECT * FROM users WHERE id = $1', [req.body.mentorId], (erreur, results) => {
+      client.query('SELECT * FROM users WHERE id = $1', [session.mentorId], (erreur, results) => {
         // check if the logged user is a user
         if (loggedUser.userIn.user_type !== '0') {
           res.status(403).json({
@@ -40,9 +40,10 @@ router.post('/sessions', verifyToken, (req, res) => {
           res.status(400).json({
             status: 400,
             error: result.error.details[0].message,
+            data: results.rows,
           });
         // check if Id exists  
-        } else if (results.rows[0].user_type !== '2') {
+        } else if (results.rows === 'undefined' || results.rows.length === 0 || results.rows[0].user_type !== '2') {
           res.status(404).json({
             status: 404,
             error: 'Mentor with the Given ID does not exists',
