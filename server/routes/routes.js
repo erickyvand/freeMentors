@@ -1,6 +1,7 @@
 import express from 'express';
 
 import signupController from '../controllers/users/signup';
+import adminSignupController from '../controllers/users/adminSignup';
 import signinController from '../controllers/users/signin';
 import changerUserController from '../controllers/users/changeUser';
 import mentorsController from '../controllers/users/mentors';
@@ -15,24 +16,25 @@ import sessionsController from '../controllers/sessions/sessions';
 import reviewController from '../controllers/reviews/reviews';
 import deleteReviewController from '../controllers/reviews/deleteReview';
 
-const routes = express();
+const route = express();
 
-// users routes
-routes.use('/api/v1/auth', signupController);
-routes.use('/api/v1/auth', signinController);
-routes.use('/api/v1', changerUserController);
-routes.use('/api/v1', mentorsController);
-routes.use('/api/v1', specificMentorController);
-routes.use('/api/v1', allUsersController);
+// users rotues
+route.use('/api/v2/auth', signupController);
+route.use('/api/v2/auth', adminSignupController);
+route.use('/api/v2/auth', signinController);
+route.use('/api/v2', changerUserController);
+route.use('/api/v2', mentorsController);
+route.use('/api/v2', specificMentorController);
+route.use('/api/v2', allUsersController);
 
 // sessions routes
-routes.use('/api/v1', requestSessionController);
-routes.use('/api/v1', acceptRequestController);
-routes.use('/api/v1', rejectRequestController);
-routes.use('/api/v1', sessionsController);
+route.use('/api/v2', requestSessionController);
+route.use('/api/v2', acceptRequestController);
+route.use('/api/v2', rejectRequestController);
+route.use('/api/v2', sessionsController);
 
 // reviews routes
-routes.use('/api/v1', reviewController);
-routes.use('/api/v1', deleteReviewController);
+route.use('/api/v2', reviewController);
+route.use('/api/v2', deleteReviewController);
 
-export default routes;
+export default route;
