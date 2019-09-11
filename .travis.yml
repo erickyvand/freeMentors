@@ -7,6 +7,7 @@ addons:
 env:
   global:
   - PGPORT=5432
+  - AUTH_KEY = THI3_13_TH3_53C3T_K3Y
 
 language: node_js
 
