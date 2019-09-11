@@ -1,23 +1,17 @@
-addons:
-  postgresql: "10.10"
-  apt:
-    packages:
-    - postgresql-10
-    - postgresql-client-10
-env:
-  global:
-  - PGPORT=5432
-  - AUTH_KEY = THI3_13_TH3_53C3T_K3Y
-
 language: node_js
 
-node_js: "stable"
+node_js: 
+  - "10.10"
 
 services: 
 - postgresql
 
 before_script:
 - psql -c "create database free_mentorsDB;" -U postgres
+
+cache:
+  directories:
+  - node_modules
 
 install: npm install
 
