@@ -1,64 +1,44 @@
-const users = [
-  {
-    id: 1,
-    first_name: 'Ericky',
-    last_name: 'Vand',
-    email: 'ericky@gmail.com',
-    password: '$2b$10$7RKTpmyHOpTW7Gt2xq.UuuVPFHk0LwF5eoaGHnvuVnoIv85t5kGNm',
-    address: 'Huye',
-    bio: 'been a hard worker',
-    occupation: 'developer',
-    expertise: 'Games application',
-    user_type: 'admin',
-  },
-  {
-    id: 2,
-    first_name: 'Hakiza',
-    last_name: 'Olivier',
-    email: 'hakiza@gmail.com',
-    password: '$2b$10$.fbHOjGEyIQZq7klTeEineAJfWB1SXF6lTpNX2tWEtP7pC/mxc6NS',
-    address: 'Kigali',
-    bio: 'Mad developer',
-    occupation: 'Web',
-    expertise: 'Web Application',
-    user_type: 'user',
-  },
-  {
-    id: 3,
-    first_name: 'Jado',
-    last_name: 'Dus',
-    email: 'jado@gmail.com',
-    password: '$2b$10$UHBuRFlU47zPZvGFXKUaTuFq4i/qqbEZdyqYDBJYLWLtgXKGALlMa',
-    address: 'Kigali',
-    bio: 'Mad developer',
-    occupation: 'Web',
-    expertise: 'Web Application',
-    user_type: 'mentor',
-  },
-  {
-    id: 4,
-    first_name: 'Umutesi',
-    last_name: 'Jane',
-    email: 'umutesi@gmail.com',
-    password: '$2b$10$aVejBEzIVKXgrzNEOEYfNeyXyMpIhgR/6dP8oqa2MnXdzr2W2lAia',
-    address: 'Kigali',
-    bio: 'Mad developer',
-    occupation: 'Web',
-    expertise: 'Web Application',
-    user_type: 'mentor',
-  },
-  {
-    id: 5,
-    first_name: 'Havuga',
-    last_name: 'Bosco',
-    email: 'havuga@gmail.com',
-    password: '$2b$10$TpI/duhzhugfolZvRF2Lle5KBAP42IhRBl8GRoFvJREQG85z4Gl6.',
-    address: 'Kigali',
-    bio: 'Mad developer',
-    occupation: 'Web',
-    expertise: 'Web Application',
-    user_type: 'user',
-  },
-];
+import bcrypt from 'bcrypt';
+import client from '../config/config';
 
-export default users;
+const saltRounds = 10;
+const password = 'Ab12345@';
+
+const hashPass = bcrypt.hashSync(password, saltRounds);
+
+const user1 = `
+  INSERT INTO users (first_name, last_name, email, password, address, bio, occupation, expertise, user_type) VALUES ('Ericky', 'Vand', 'ericky@gmail.com', '${hashPass}', 'Kigali', 'Love', 'Developer', 'web dev', '1');
+`;
+
+const user2 = `
+  INSERT INTO users (first_name, last_name, email, password, address, bio, occupation, expertise) VALUES ('Hakiza', 'Olivier', 'hakiza@gmail.com', '${hashPass}', 'Kigali', 'Love', 'Developer', 'web dev');
+`;
+
+const user3 = `
+  INSERT INTO users (first_name, last_name, email, password, address, bio, occupation, expertise, user_type) VALUES ('Jado', 'Dus', 'jado@gmail.com', '${hashPass}', 'Kigali', 'Love', 'Developer', 'web dev', '2');
+`;
+
+const user4 = `
+  INSERT INTO users (first_name, last_name, email, password, address, bio, occupation, expertise) VALUES ('Umutesi', 'Jane', 'umutesi@gmail.com', '${hashPass}', 'Kigali', 'Love', 'Developer', 'web dev');
+`;
+
+const user5 = `
+  INSERT INTO users (first_name, last_name, email, password, address, bio, occupation, expertise) VALUES ('Bruce', 'Rute', 'bruce@gmail.com', '${hashPass}', 'Kigali', 'Love', 'Developer', 'web dev');
+`;
+
+const usersQueries = `
+  ${user1} 
+  ${user2} 
+  ${user3}
+  ${user4}
+  ${user5}
+`;
+
+
+(async () => {
+  try {
+    await client.query(usersQueries);
+  } catch (err) {
+    console.log(err);
+  }
+})();
