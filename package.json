@@ -15,7 +15,11 @@
   "scripts": {
     "test": "nyc mocha --require @babel/register ./server/tests/* --timeout 10000 --exit || true",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls",
-    "start": "node app.js"
+    "start": "node app.js",
+    "migrate": "babel-node ./server/models/tables.js",
+    "render-users": "babel-node ./server/models/user.js",
+    "render-sessions": "babel-node ./server/models/session.js",
+    "render-reviews": "babel-node ./server/models/review.js"
   },
   "engines": {
     "node": "12.4.0"
@@ -37,7 +41,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.2.0",
-    "nyc": "^14.1.1"
+    "nyc": "^14.1.1",
+    "pg": "^7.12.1"
   },
   "devDependencies": {
     "eslint": "^6.2.2",
