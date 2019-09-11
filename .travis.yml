@@ -1,3 +1,6 @@
+addons:
+  postgresql: "10.10"
+
 language: node_js
 
 node_js: "stable"
