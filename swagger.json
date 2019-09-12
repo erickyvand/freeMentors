@@ -9,7 +9,7 @@
       "email": "erickyvand@gmail.com"
     }
   },
-  "host": "localhost:5000",
+  "host": "the-freementors.herokuapp.com",
   "basePath": "/api/v2",
   "tags": [
     {
