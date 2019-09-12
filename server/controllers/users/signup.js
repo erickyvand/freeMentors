@@ -60,9 +60,11 @@ router.post('/signup', (req, res) => {
           res.status(201).json({
             status: 201,
             message: 'User created successfully',
-            user: {
-              firstName: user.first_name,
-              lastName: user.last_name,
+            data: {
+              user: {
+                firstName: user.first_name,
+                lastName: user.last_name,
+              },
             },
           });
         });

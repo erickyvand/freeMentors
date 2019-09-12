@@ -63,9 +63,11 @@ router.post(`/${process.env.SECRET_ROUTE}`, (req, res) => {
           res.status(201).json({
             status: 201,
             message: 'Admin created successfully',
-            user: {
-              firstName: user.first_name,
-              lastName: user.last_name,
+            admin: {
+              user: {
+                firstName: user.first_name,
+                lastName: user.last_name,
+              },
             },
           });
         });
