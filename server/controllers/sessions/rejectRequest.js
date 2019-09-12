@@ -49,16 +49,14 @@ router.patch('/sessions/:sessionId/reject', verifyToken, (req, res) => {
           });
         // update if everything goes right  
         } else {
-          client.query('UPDATE request_session SET status = \'rejected\' WHERE id = $1', [req.params.sessionId]);
-          client.query('SELECT r.id as sessionid, r.mentorid as mentorId, u.id as menteeId, r.questions as questions, u.email as email, r.status as status FROM users u JOIN request_session r ON u.id = r.menteeId WHERE r.id = $1 ORDER BY r.id DESC LIMIT 1', [req.params.sessionId]).then((reject) => {
+          client.query('UPDATE request_session SET status = \'rejected\' WHERE id = $1 RETURNING*', [req.params.sessionId]).then((reject) => {
             res.status(200).json({
               status: 200,
               data: {
-                sessionId: reject.rows[0].sessionid,
+                sessionId: reject.rows[0].id,
                 mentorId: reject.rows[0].mentorid,
                 menteeId: reject.rows[0].menteeid,
                 questions: reject.rows[0].questions,
-                email: reject.rows[0].email,
                 status: reject.rows[0].status,
               },
             });
