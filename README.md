@@ -56,5 +56,7 @@ ROUTES
 
 Relative links
 ---
-1. Heroku: [https://the-free-mentors.herokuapp.com/](https://the-free-mentors.herokuapp.com/)
+1. Heroku v1: [https://the-free-mentors.herokuapp.com/](https://the-free-mentors.herokuapp.com/)
 2. gh-pages: [https://erickyvand.github.io/freeMentors/UI/](https://erickyvand.github.io/freeMentors/UI/)
+3. Heroku v2: [https://the-freementors.herokuapp.com/](https://the-freementors.herokuapp.com/)
+4. Swagger: [https://the-freementors.herokuapp.com/api-docs/](https://the-freementors.herokuapp.com/api-docs/)
