@@ -1,22 +1,27 @@
-const reviews = [
-  {
-    id: 1,
-    sessionId: 7,
-    mentorId: 3,
-    menteeId: 2,
-    score: 4,
-    menteeFullName: 'Hakiza Olivier',
-    remark: 'keep going',
-  },
-  {
-    id: 2,
-    sessionId: 5,
-    mentorId: 3,
-    menteeId: 3,
-    score: 4,
-    menteeFullName: 'Hakiza Olivier',
-    remark: 'keep going',
-  },
-];
+import client from '../config/config';
 
-export default reviews;
+const review1 = `
+  INSERT INTO reviews (reqsession_id, menteeid, score, remark) VALUES ('1', '2', '4', 'Keep working');
+`;
+
+const review2 = `
+  INSERT INTO reviews (reqsession_id, menteeid, score, remark) VALUES ('3', '2', '4', 'Keep working');
+`;
+
+const review3 = `
+  INSERT INTO reviews (reqsession_id, menteeid, score, remark) VALUES ('2', '2', '4', 'Keep working');
+`;
+
+const reviewsQueries = `
+  ${review1} 
+  ${review2}
+  ${review3}
+`;
+
+(async () => {
+  try {
+    await client.query(reviewsQueries);
+  } catch (err) {
+    console.log(err);
+  }
+})();

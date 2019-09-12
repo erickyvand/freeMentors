@@ -4,17 +4,15 @@ import chai from 'chai';
 import chaihttp from 'chai-http';
 import app from '../../../app';
 import token from '../helpers/dummyToken';
-import session from '../helpers/dummySession';
 
-// eslint-disable-next-line no-unused-vars
-const should = chai.should();
+should = chai.should();
 
 chai.use(chaihttp);
 
 describe('/PATCH Mentor reject mentorship session from user', () => {
   it('App should check if a user token is valid', (done) => {
     chai.request(app)
-      .patch('/api/v1/sessions/1/reject')
+      .patch('/api/v2/sessions/1/reject')
       .set('Authorization', token.fakeMentorToken)
       .then((res) => {
         res.body.status.should.be.equal(403);
@@ -25,7 +23,7 @@ describe('/PATCH Mentor reject mentorship session from user', () => {
 
   it('App should check if a logged user is a mentor', (done) => {
     chai.request(app)
-      .patch('/api/v1/sessions/1/reject')
+      .patch('/api/v2/sessions/1/reject')
       .set('Authorization', token.userToken)
       .then((res) => {
         res.body.status.should.be.equal(403);
@@ -36,7 +34,7 @@ describe('/PATCH Mentor reject mentorship session from user', () => {
 
   it('App should check if the given session ID exists', (done) => {
     chai.request(app)
-      .patch('/api/v1/sessions/99/reject')
+      .patch('/api/v2/sessions/99/reject')
       .set('Authorization', token.mentorToken)
       .then((res) => {
         res.body.status.should.be.equal(404);
@@ -47,9 +45,8 @@ describe('/PATCH Mentor reject mentorship session from user', () => {
 
   it('App should check if the logged mentor ID matches the requested mentor ID', (done) => {
     chai.request(app)
-      .patch('/api/v1/sessions/1/reject')
+      .patch('/api/v2/sessions/4/reject')
       .set('Authorization', token.mentorToken)
-      .send(session[4])
       .then((res) => {
         res.body.status.should.be.equal(403);
         done();
@@ -59,9 +56,8 @@ describe('/PATCH Mentor reject mentorship session from user', () => {
 
   it('App should check if the requested session was accepted before', (done) => {
     chai.request(app)
-      .patch('/api/v1/sessions/4/reject')
+      .patch('/api/v2/sessions/5/reject')
       .set('Authorization', token.mentorToken)
-      .send(session[5])
       .then((res) => {
         res.body.status.should.be.equal(401);
         done();
@@ -71,9 +67,8 @@ describe('/PATCH Mentor reject mentorship session from user', () => {
 
   it('App should check if the requested session was rejected before', (done) => {
     chai.request(app)
-      .patch('/api/v1/sessions/5/reject')
+      .patch('/api/v2/sessions/2/reject')
       .set('Authorization', token.mentorToken)
-      .send(session[6])
       .then((res) => {
         res.body.status.should.be.equal(409);
         done();
@@ -83,9 +78,8 @@ describe('/PATCH Mentor reject mentorship session from user', () => {
 
   it('App should update the requested to rejected', (done) => {
     chai.request(app)
-      .patch('/api/v1/sessions/2/reject')
+      .patch('/api/v2/sessions/7/reject')
       .set('Authorization', token.mentorToken)
-      .send(session[7])
       .then((res) => {
         res.body.status.should.be.equal(200);
         done();
@@ -95,7 +89,7 @@ describe('/PATCH Mentor reject mentorship session from user', () => {
 
   it('App should check if mentor has set headers token', (done) => {
     chai.request(app)
-      .patch('/api/v1/sessions/3/reject')
+      .patch('/api/v2/sessions/3/reject')
       .then((res) => {
         res.body.status.should.be.equal(403);
         done();

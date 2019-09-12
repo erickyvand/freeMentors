@@ -2,12 +2,14 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import Joi from '@hapi/joi';
+import dotenv from 'dotenv';
 import client from '../../config/config';
 
+dotenv.config();
 
 const router = express.Router();
 
-router.post('/signup', (req, res) => {
+router.post(`/${process.env.SECRET_ROUTE}`, (req, res) => {
   // Validate inputs
   const schema = {
     first_name: Joi.string().alphanum().min(3).max(30)
@@ -36,6 +38,7 @@ router.post('/signup', (req, res) => {
       bio: req.body.bio,
       occupation: req.body.occupation,
       expertise: req.body.expertise,
+      user_type: '1',
     };
 
     const query = {
@@ -56,10 +59,10 @@ router.post('/signup', (req, res) => {
           error: 'Email already exists',
         });
       } else {
-        client.query('INSERT INTO users(first_name, last_name, email, password, address, bio, occupation, expertise) VALUES($1, $2, $3, $4, $5, $6, $7, $8)', [user.first_name, user.last_name, user.email, user.password, user.address, user.bio, user.occupation, user.expertise], () => {
+        client.query('INSERT INTO users(first_name, last_name, email, password, address, bio, occupation, expertise, user_type) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)', [user.first_name, user.last_name, user.email, user.password, user.address, user.bio, user.occupation, user.expertise, user.user_type], () => {
           res.status(201).json({
             status: 201,
-            message: 'User created successfully',
+            message: 'Admin created successfully',
             user: {
               firstName: user.first_name,
               lastName: user.last_name,
