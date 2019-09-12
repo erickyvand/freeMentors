@@ -30,12 +30,10 @@ router.delete('/sessions/:sessionid/review', verifyToken, (req, res) => {
           });
         } else {
           // Delete if everything is okay
-          client.query('DELETE FROM reviews WHERE id = $1', [req.params.sessionid]);
-          client.query('SELECT * FROM reviews').then((reviews) => {
+          client.query('DELETE FROM reviews WHERE id = $1 RETURNING*', [req.params.sessionid]).then(() => {
             res.status(200).json({
               status: 200,
               message: 'Review successfully deleted',
-              leftReviewsInDatabas: reviews.rows,
             });
           });
         }
