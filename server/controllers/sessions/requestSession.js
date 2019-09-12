@@ -40,7 +40,6 @@ router.post('/sessions', verifyToken, (req, res) => {
           res.status(400).json({
             status: 400,
             error: result.error.details[0].message,
-            data: results.rows,
           });
         // check if Id exists  
         } else if (results.rows === 'undefined' || results.rows.length === 0 || results.rows[0].user_type !== '2') {
