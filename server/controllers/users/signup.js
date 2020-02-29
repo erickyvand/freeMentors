@@ -59,7 +59,7 @@ router.post('/signup', (req, res) => {
         client.query('INSERT INTO users(first_name, last_name, email, password, address, bio, occupation, expertise) VALUES($1, $2, $3, $4, $5, $6, $7, $8)', [user.first_name, user.last_name, user.email, user.password, user.address, user.bio, user.occupation, user.expertise], () => {
           res.status(201).json({
             status: 201,
-            message: 'User created successfully',
+            message: 'Account created successfully',
             data: {
               user: {
                 firstName: user.first_name,

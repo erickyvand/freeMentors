@@ -41,11 +41,14 @@ router.post('/signin', (req, res) => {
           jwt.sign({ userIn }, process.env.AUTH_KEY, (_err, token) => {
             res.status(200).json({
               status: 200,
-              message: 'User is successfully sign in',
+              message: 'Successfully sign in',
               data: {
                 token,
+                id: userIn.id,
                 firstName: userIn.firstName,
                 lastName: userIn.lastName,
+                email: userIn.email,
+                userType: userIn.user_type,
               },
             });
           });
