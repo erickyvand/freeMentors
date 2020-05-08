@@ -16,7 +16,7 @@ router.get('/sessions', verifyToken, (req, res) => {
       });
     // check if the logged user is a user  
     } else if (loggedUser.userIn.user_type === '0') {
-      client.query('SELECT r.id as sessionId, r.mentorid as MentorId, u.id as menteeId, r.questions as questions, u.email as email, r.status as status FROM users u JOIN request_session r ON u.id = r.menteeId WHERE u.id = $1 ORDER BY r.id DESC', [loggedUser.userIn.id], (error, results) => {
+      client.query('SELECT r.id as sessionId, r.mentorid as MentorId, u.id as menteeId, r.questions as questions, u.email as email, u.first_name as firstName, u.last_name as lastName, r.status as status FROM users u JOIN request_session r ON u.id = r.mentorid GROUP BY u.id HAVING u.id = $1 ORDER BY r.id DESC', [loggedUser.userIn.id], (error, results) => {
         res.status(200).json({
           status: 200,
           data: results.rows,
