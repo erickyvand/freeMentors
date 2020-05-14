@@ -7,6 +7,7 @@ import changerUserController from '../controllers/users/changeUser';
 import mentorsController from '../controllers/users/mentors';
 import specificMentorController from '../controllers/users/specificMentor';
 import allUsersController from '../controllers/users/allUsers';
+import menteesController from '../controllers/users/mentees';
 
 import requestSessionController from '../controllers/sessions/requestSession';
 import acceptRequestController from '../controllers/sessions/acceptRequest';
@@ -26,6 +27,7 @@ route.use('/api/v2', changerUserController);
 route.use('/api/v2', mentorsController);
 route.use('/api/v2', specificMentorController);
 route.use('/api/v2', allUsersController);
+route.use('/api/v2', menteesController);
 
 // sessions routes
 route.use('/api/v2', requestSessionController);
