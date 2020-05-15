@@ -52,6 +52,7 @@ router.patch('/sessions/:sessionId/accept', verifyToken, (req, res) => {
           client.query('UPDATE request_session SET status = \'accepted\' WHERE id = $1 RETURNING*', [req.params.sessionId]).then((accept) => {
             res.status(200).json({
               status: 200,
+              message: 'This session request has been accepted',
               data: {
                 sessionId: accept.rows[0].id,
                 mentorId: accept.rows[0].mentorid,

@@ -52,6 +52,7 @@ router.patch('/sessions/:sessionId/reject', verifyToken, (req, res) => {
           client.query('UPDATE request_session SET status = \'rejected\' WHERE id = $1 RETURNING*', [req.params.sessionId]).then((reject) => {
             res.status(200).json({
               status: 200,
+              message: 'This session request has been rejected',
               data: {
                 sessionId: reject.rows[0].id,
                 mentorId: reject.rows[0].mentorid,

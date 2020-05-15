@@ -53,6 +53,7 @@ router.post('/sessions', verifyToken, (req, res) => {
           client.query('SELECT r.id as sessionId, r.mentorId as mentorId, u.id as menteeId, r.questions as questions, u.email as email, r.status as status FROM users u JOIN request_session r ON u.id = r.menteeId WHERE u.id = $1 ORDER BY r.id DESC LIMIT 1', [loggedUser.userIn.id], (error, request) => {
             res.status(201).json({
               status: 201,
+              message: 'Your request has been made successfully',
               data: {
                 sessionId: request.rows[0].sessionid,
                 mentorId: request.rows[0].mentorid,
