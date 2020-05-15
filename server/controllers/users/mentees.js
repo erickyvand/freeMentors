@@ -16,7 +16,7 @@ router.get('/mentees', verifyToken, (req, res) => {
         error: 'Forbidden',
       });
     // check if the logged user is a mentor  
-    } else if (loggedUser.userIn.user_type !== '2') {
+    } else if (loggedUser.userIn.user_type === '0') {
       res.status(403).json({
         status: 403,
         error: 'You are not allowed to access this route',

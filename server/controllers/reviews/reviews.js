@@ -38,7 +38,7 @@ router.post('/sessions/:sessionId/review', verifyToken, (req, res) => {
           });
         // admin can not review but see all reviews  
         } else if (loggedUser.userIn.user_type === '1') {
-          client.query('SELECT rq.id as sessionId, rq.mentorid as mentorId, u.id as menteeId, r.score as score, u.first_name as firstName, u.last_name as lastName, r.remark as remark FROM users u JOIN request_session rq ON u.id = rq.menteeid JOIN reviews r ON rq.id = r.reqsession_id ORDER BY r.id DESC').then((reviews) => {
+          client.query('SELECT rq.id as sessionId, r.id as id, rq.mentorid as mentorId, u.id as menteeId, r.score as score, u.first_name as firstName, u.last_name as lastName, r.remark as remark FROM users u JOIN request_session rq ON u.id = rq.menteeid JOIN reviews r ON rq.id = r.reqsession_id ORDER BY r.id DESC').then((reviews) => {
             res.status(200).json({
               status: 200,
               data: reviews.rows,
@@ -74,6 +74,7 @@ router.post('/sessions/:sessionId/review', verifyToken, (req, res) => {
           client.query('SELECT r.id as id, rq.id as sessionid, rq.mentorid as mentorId, u.first_name as menteeFirstName, u.last_name as menteeLastName, r.score as score, r.remark as remark FROM users u JOIN request_session rq ON u.id = rq.menteeid JOIN reviews r ON rq.id = r.reqsession_id WHERE u.id = $1 ORDER BY r.id DESC LIMIT 1', [loggedUser.userIn.id]).then((reviews) => {
             res.status(201).json({
               status: 201,
+              message: 'Your review has been submitted successfully',
               data: reviews.rows[0],
             });
           });
