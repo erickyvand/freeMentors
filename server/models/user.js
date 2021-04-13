@@ -34,7 +34,6 @@ const usersQueries = `
   ${user5}
 `;
 
-
 (async () => {
   try {
     await client.query(usersQueries);
