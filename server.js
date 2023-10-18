@@ -16,7 +16,7 @@ app.use(routes);
 app.use('/*', (req, res) => {
   res.status(404).json({
     status: 404,
-    error: 'This is not the page you are looking for check well the route or method',
+    error: 'This is not the page you are looking for check well the route or method.',
   });
 });
 
